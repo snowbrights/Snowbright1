@@ -1,0 +1,343 @@
+#include<stdio.h>
+#define N 10000
+#include<string.h>
+#include<stdlib.h>
+struct st_xw
+{
+	char name[20];//姓名
+	char sex[10];//性别
+	char class[10];//班级
+	int num;//学号
+	int age;//年龄
+	int building;//宿舍楼
+	int room;//宿舍号
+}stu[N];
+//stu[N] = { { "王澎","男","信息1901B3",8,19,14,214 },{"薛炜","男","信息1901B3",35,19,14,214 }, {"林书豪","男","信息1901B3",7,27,14,214} };
+//添加（bingo）
+int n;
+void tianjia()
+{
+	int i;
+	//system("cls");
+	printf("输入录入学生人数:\n");
+	scanf_s("%d", &n);
+	printf("请按照格式依次输入\n");
+	printf("姓名\n性别\n班级\n学号 年龄 宿舍楼 宿舍号\n");
+	getchar();
+	for (i = 0; i < n; i++)
+	{
+		gets(stu[i].name);// puts(stu[i].name);
+		gets(stu[i].sex);// puts(stu[i].sex);
+		gets(stu[i].class);//puts(stu[i].class);
+		scanf_s("%d %d %d %d", &stu[i].num, &stu[i].age, &stu[i].building, &stu[i].room);
+		printf("添加成功!\n");
+		//printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+	}
+}
+//修改(bingo)
+void xiugai()
+{
+	int num2, i;
+	char new_name[20];
+	printf("请输入需要修改的学生姓名：");
+	getchar();
+	gets(new_name);
+	for (i = 0; i < n; i++)
+		if (strcmp(stu[i].name, new_name) == 0)
+		{
+			printf("\n------该学生信息------\n");
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+		}
+	int choice2;
+	do {
+		printf("您要修改哪一项？\n");
+		printf("1.学号\n");
+		printf("2.姓名\n");
+		printf("3.性别\n");
+		printf("4.班级\n");
+		printf("5.宿舍楼\n");
+		printf("6.宿舍号\n");
+		printf("0.返回主页\n");
+		scanf_s("%d", &choice2);
+		switch (choice2)
+		{
+		case 1:printf("\n请输入修改后的学号：");
+			scanf_s("%d", &stu[i].num); printf("成功修改学号为:%d\n", stu[i].num); break;
+		case 2:printf("\n请输入修改后的姓名：");
+			scanf_s("%s", &stu[i].name); printf("成功修改学号为:%d\n", stu[i].name); break;
+		case 3:printf("\n请输入修改后的性别：");
+			scanf_s("%s", &stu[i].sex); printf("成功修改学号为:%d\n", stu[i].sex); break;
+		case 4:printf("\n请输入修改后的班级：");
+			scanf_s("%s", &stu[i].class); printf("成功修改学号为:%d\n", stu[i].class); break;
+		case 5:printf("\n请输入修改后的宿舍楼：");
+			scanf_s("%d", &stu[i].building); printf("成功修改学号为:%d\n", stu[i].building); break;
+		case 6:printf("\n请输入修改后的宿舍号：");
+			scanf_s("%d", &stu[i].room); printf("成功修改学号为:%d\n", stu[i].room); break;
+		}
+	} while (choice2 != 0);
+}
+//删除
+void shanchu()
+{
+	int num_0;
+	int i, choice_5;
+	printf("请输入学号：");
+	scanf_s("%d", &num_0);
+	for (i = 0; i < n; i++)
+		if (num_0 == stu[i].num)
+		{
+			printf("\n------该学生信息------\n");
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+			break;
+		}
+	if (num_0 != stu[i].num)
+	{
+		choice_5 = 0;
+		printf("没有查到此人！\n");
+	}
+	do {
+		puts("*************请选择删除内容************\n");
+		puts("**             1.宿舍信息            **\n");
+		puts("**             2.宿舍楼信息          **\n");
+		puts("**             0.返回上一级          **\n");
+		puts("***************************************\n");
+		scanf_s("%d", &choice_5);
+		switch (choice_5)
+		{
+		case 1:stu[i].room = -1;
+			if (stu[i].room == -1)
+			{
+				printf("\n------修改后该学生信息------\n");
+				puts(stu[i].name);
+				puts(stu[i].sex);
+				puts(stu[i].class);
+				printf("%d %d %d\n", stu[i].num, stu[i].age, stu[i].building);
+			}
+			printf("宿舍信息已删除！"); break;
+		case 2:stu[i].building = -1;
+			if (stu[i].building = -1)
+				printf("\n------修改后该学生信息------\n");
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d\n", stu[i].num, stu[i].age, stu[i].room);
+			printf("宿舍楼信息已删除！%d\n", stu[i].building); break;
+		}
+	} while (choice_5 != 0);
+}
+//浏览(bingo)
+void liulan()
+{
+
+	int i;
+	fflush(stdin);
+	//printf("%d", n);
+	for (i = 0; i < n; i++)
+	{
+		printf("学生信息如下：\n");
+		puts(stu[i].name);
+		puts(stu[i].sex);
+		puts(stu[i].class);
+		printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+	}
+	//printf("%d", n);
+}
+//查找（bingo)
+void num_1()
+{
+	int num1, i;
+	printf("请输入学号\n");
+	scanf_s("%d", &num1);
+	for (i = 0; i < n; i++)
+	{
+		if (stu[i].num == num1)
+		{
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+		}
+		if (num1 != stu[i].num)
+		{
+			printf("没有查到此人!\n");
+		}
+	}
+}
+void name_1()
+{
+	int  i;
+	char name1[20];
+	printf("请输入名字\n");
+	getchar();
+	gets(name1);
+	for (i = 0; i < n; i++)
+	{
+		if (strcmp(stu[i].name, name1) == 0)
+		{
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+		}
+
+		if (name1 != stu[i].name)
+		{
+			printf("没有查到此人!\n");
+		}
+	}
+}
+void room_1()
+{
+	int room1, i;
+	printf("请输入宿舍号:\n");
+	scanf_s("%d", &room1);
+	for (i = 0; i < n; i++)
+	{
+		if (stu[i].room == room1)
+		{
+			puts(stu[i].name);
+			puts(stu[i].sex);
+			puts(stu[i].class);
+			printf("%d %d %d %d\n", stu[i].num, stu[i].age, stu[i].building, stu[i].room);
+		}
+		if (room1 != stu[i].room)
+		{
+			printf("没有查到此人!\n");
+		}
+	}
+}
+void chazhao()
+{
+	void num_1();
+	void name_1();
+	void room_1();
+	int choice1;
+	do {
+		puts("                   查询方式\n");
+		puts("*********************请选择************************\n");
+		puts("*                1.按学号查询                     *\n");
+		puts("*                2.按姓名查询                     *\n");
+		puts("*                3.按宿舍查询                     *\n");
+		puts("*                0.返回主菜单                     *\n");
+		puts("***************************************************\n");
+		scanf_s("%d", &choice1);
+		switch (choice1)
+		{
+		case 1:num_1(); break;
+		case 2:name_1(); break;
+		case 3:room_1(); break;
+		default:
+		{
+			fflush(stdin);
+			getchar();
+		}
+		}
+	} while (choice1 != 0);
+}
+//统计
+void tongji()
+{
+	void building();
+	void room();
+	int choice4;
+	do
+	{
+		puts("                 统计方式\n");
+		puts("******************请选择*******************\n");
+		puts("**              1.按宿舍号统计           **\n");
+		puts("**              2.按宿舍楼统计           **\n");
+		puts("**              0.返回上一级             **\n");
+		puts("*******************************************\n");
+		puts("请选择您所需要功能的选项:");
+		scanf_s("%d", &choice4);
+		switch (choice4)
+		{
+		case 1: room(); break;
+		case 2:building(); break;
+		}
+	} while (choice4 != 0);
+}
+void building()
+{
+	int building_1, i, sum = 0;
+	printf("请输入宿舍楼号:");
+	scanf_s("%d", &building_1);
+	for (i = 0; i < n; i++)
+	{
+		if (building_1 == stu[i].building)
+		{
+			sum++;
+			puts(stu[i].name);
+		}
+	}
+	if (sum != 0)
+		printf("住在%d宿舍楼中共有%d人\n", building_1, sum);
+	else
+		printf("该宿舍楼暂时无人入住！\n");
+
+}
+void room()
+{
+	int room_1, i, sum = 0;
+	printf("请输入宿舍号：");
+	scanf_s("%d", &room_1);
+	for (i = 0; i < n; i++)
+	{
+		if (room_1 == stu[i].room)
+		{
+			sum++;
+			puts(stu[i].name);
+		}
+	}
+	if (sum != 0)
+		printf("住在%d宿舍中共有%d人\n", room_1, sum);
+	else
+		printf("该宿舍暂时无人入住！\n");
+
+}
+
+//主函数啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+int main()
+{
+	int number;
+	void tianjia();
+	void xiugai();
+	void shanchu();
+	void liulan();
+	void chazhao();
+	void tongji();
+
+	do {
+
+		puts("                           学生宿舍管理系统");
+		puts("********************************主菜单**********************************");
+		puts("*                           1.添加学生住宿信息                         *\n");
+		puts("*                           2.修改学生住宿信息                         *\n");
+		puts("*                           3.删除学生住宿信息                         *\n");
+		puts("*                           4.浏览学生住宿信息                         *\n");
+		puts("*                           5.查找住宿信息                             *\n");
+		puts("*                           6.统计住宿信息                             *\n");
+		puts("*                           0.退出系统                                 *\n");
+		puts("************************************************************************");
+		puts("请选择您所需要功能的选项:");
+
+		fflush(stdin);
+		scanf_s("%d", &number);
+		switch (number)
+		{
+		case 1:tianjia(); break;
+		case 2:xiugai(); break;
+		case 3:shanchu(); break;
+		case 4:liulan(); break;
+		case 5:chazhao(); break;
+		case 6: tongji(); break;
+		}
+	} while (number != 0);
+	return 0;
+}
